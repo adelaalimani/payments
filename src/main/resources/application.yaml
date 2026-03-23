@@ -1,4 +1,8 @@
+server:
+  port: 8080
 spring:
+  application:
+    name: payments-app
   datasource:
     url: jdbc:postgresql://localhost:5432/payments
     username: postgres
@@ -16,4 +20,4 @@ spring:
 
   devtools:
     restart:
-      enabled: true
+      enabled: false
