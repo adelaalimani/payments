@@ -1,9 +1,8 @@
 package com.adela.payments.mapper;
 
-import com.adela.payments.dto.CreatePaymentRequest;
-import com.adela.payments.dto.PaymentResponse;
+import com.adela.payments.request.CreatePaymentRequest;
+import com.adela.payments.response.PaymentResponse;
 import com.adela.payments.entity.Payment;
-import com.adela.payments.enums.PaymentStatus;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

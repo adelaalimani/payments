@@ -1,4 +1,4 @@
-package com.adela.payments.expection;
+package com.adela.payments.exception;
 
 public class NotFoundException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.adela.payments.dto;
+package com.adela.payments.request;
 
 import com.adela.payments.enums.PaymentMethod;
 

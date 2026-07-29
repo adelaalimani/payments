@@ -1,12 +1,14 @@
 server:
   port: 8080
+
 spring:
   application:
     name: payments-app
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/payments
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${DB_URL:localhost}:${DB_PORT:5432}/${DB_NAME:payments}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -21,3 +23,17 @@ spring:
   devtools:
     restart:
       enabled: false
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: mysecret
+
+app:
+  security:
+    jwt:
+      access-token-expiration: 86400000 # 1 day
+      refresh-token-expiration: 604800000 # 7 days
+  validation:
+      disposable-email: 10minutemail,20minutemail,33mail,5ymail,anonbox,guerrillamail,mailinator,maildrop,mailnesia,moakt,my10minutemail,throwawaymail,trashmail,temp-mail,tempmail,truemail,yopmail

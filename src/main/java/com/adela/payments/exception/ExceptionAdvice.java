@@ -1,4 +1,4 @@
-package com.adela.payments.expection;
+package com.adela.payments.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

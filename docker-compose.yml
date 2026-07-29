@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: payments-postgres
+    environment:
+      POSTGRES_DB: payments
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    container_name: payments-redis
+    command: redis-server --requirepass mysecret
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres-data:
