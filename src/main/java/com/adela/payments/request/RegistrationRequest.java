@@ -66,7 +66,7 @@ public class RegistrationRequest {
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*\\W).*$",
             message = "Password must contain at least one uppercase letter, one lowercase letter, one digit and one special character"
     )
-    @Schema(example = "pAssword123!_")
+    @Schema(example = "Password123!")
     String password;
 
     @NotBlank(message = "Confirm password is required")
@@ -74,7 +74,7 @@ public class RegistrationRequest {
             max = 72,
             message = "Confirm password must be between {min} and {max} characters"
     )
-    @Schema(example = "pAssword123!_")
+    @Schema(example = "Password123!")
     String confirmPassword;
 
 }

@@ -1,6 +1,5 @@
 package com.adela.payments.response;
 
-
 import com.adela.payments.enums.PaymentMethod;
 import com.adela.payments.enums.PaymentStatus;
 

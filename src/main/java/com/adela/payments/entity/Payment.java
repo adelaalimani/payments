@@ -3,25 +3,20 @@ package com.adela.payments.entity;
 import com.adela.payments.enums.PaymentMethod;
 import com.adela.payments.enums.PaymentStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
-@Data
+@EqualsAndHashCode(callSuper=false)
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
-public class Payment implements Serializable {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private Long id;
+public class Payment extends BaseEntity  implements Serializable  {
 
     private BigDecimal amount;
 
@@ -33,5 +28,4 @@ public class Payment implements Serializable {
 
     private String reference;
 
-    private LocalDateTime createdAt;
 }

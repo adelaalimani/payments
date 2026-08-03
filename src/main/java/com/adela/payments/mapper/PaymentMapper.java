@@ -5,7 +5,6 @@ import com.adela.payments.response.PaymentResponse;
 import com.adela.payments.entity.Payment;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
@@ -26,7 +25,6 @@ public class PaymentMapper {
                 .amount(request.amount())
                 .method(request.method())
                 .reference(UUID.randomUUID().toString())
-                .createdAt(LocalDateTime.now())
                 .build();
     }
 }

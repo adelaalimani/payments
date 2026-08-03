@@ -30,6 +30,12 @@ public class ExceptionAdvice {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler({ConflictException.class})
+    public ResponseEntity<String> handleConflictException(ConflictException ex) {
+        log.error("Conflict exception: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
         String errorMessage = ex.getBindingResult()

@@ -74,7 +74,6 @@ public class User implements UserDetails {
     private boolean credentialsExpired;
     private boolean emailVerified;
     private boolean phoneVerified;
-    private String profilePictureUrl;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
