@@ -36,6 +36,18 @@ public class ExceptionAdvice {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
+    @ExceptionHandler({UnAuthorizedException.class})
+    public ResponseEntity<String> handleUnAuthorizedException(UnAuthorizedException ex) {
+        log.error("UnAuthorizedException exception: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    }
+
+    @ExceptionHandler({ForbiddenException.class})
+    public ResponseEntity<String> handleForbiddenException(ForbiddenException ex) {
+        log.error("Forbidden exception: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
         String errorMessage = ex.getBindingResult()

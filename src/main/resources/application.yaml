@@ -37,3 +37,5 @@ app:
       refresh-token-expiration: 604800000 # 7 days
   validation:
       disposable-email: 10minutemail,20minutemail,33mail,5ymail,anonbox,guerrillamail,mailinator,maildrop,mailnesia,moakt,my10minutemail,throwawaymail,trashmail,temp-mail,tempmail,truemail,yopmail
+webhook:
+  secret: secret
