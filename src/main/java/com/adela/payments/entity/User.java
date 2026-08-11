@@ -81,7 +81,7 @@ public class User implements UserDetails {
             return List.of();
         }
         return this.roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
                 .toList();
     }
 

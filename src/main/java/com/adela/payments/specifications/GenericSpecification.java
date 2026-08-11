@@ -71,7 +71,6 @@ public class GenericSpecification<T> implements Specification<T> {
         return raw;
     }
 
-
     private List<?> parseInValues(Class<?> targetType, String raw) {
         return Arrays.stream(raw.split("\\|"))
                 .map(v -> convertValue(targetType, v.trim()))

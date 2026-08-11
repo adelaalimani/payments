@@ -16,7 +16,8 @@ public class PaymentMapper {
                 payment.getAmount(),
                 payment.getStatus(),
                 payment.getMethod(),
-                payment.getReference()
+                payment.getReference(),
+                payment.getCreatedDate()
         );
     }
 

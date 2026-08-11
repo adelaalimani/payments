@@ -58,8 +58,8 @@ public class AuthenticationService {
         checkUserPhoneNumber(request.getPhoneNumber());
         checkPasswords(request.getPassword(), request.getConfirmPassword());
 
-        Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow(
-                () -> new BadRequestException("Role 'ROLE_USER' not found")
+        Role userRole = roleRepository.findByName("CUSTOMER").orElseThrow(
+                () -> new BadRequestException("Role CUSTOMER not found")
         );
         List<Role> roles = List.of(userRole);
         User user = userMapper.toUser(request);

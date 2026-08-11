@@ -45,7 +45,7 @@ class PaymentControllerTest {
     @Test
     void initiatePayment_validRequest_returns200WithPayloadFields() throws Exception {
         CreatePaymentRequest request = new CreatePaymentRequest(new BigDecimal("100.00"), PaymentMethod.CREDIT_CARD);
-        PaymentResponse response = new PaymentResponse(1L, new BigDecimal("100.00"), PaymentStatus.PENDING, PaymentMethod.CREDIT_CARD, "ref-1");
+        PaymentResponse response = new PaymentResponse(1L, new BigDecimal("100.00"), PaymentStatus.PENDING, PaymentMethod.CREDIT_CARD, "ref-1", null);
 
         when(paymentService.initiatePayment(any(), any())).thenReturn(response);
 
@@ -63,7 +63,7 @@ class PaymentControllerTest {
     @Test
     void initiatePayment_withIdempotencyKeyHeader_passesKeyToService() throws Exception {
         CreatePaymentRequest request = new CreatePaymentRequest(new BigDecimal("100.00"), PaymentMethod.CREDIT_CARD);
-        PaymentResponse response = new PaymentResponse(1L, new BigDecimal("100.00"), PaymentStatus.PENDING, PaymentMethod.CREDIT_CARD, "ref-1");
+        PaymentResponse response = new PaymentResponse(1L, new BigDecimal("100.00"), PaymentStatus.PENDING, PaymentMethod.CREDIT_CARD, "ref-1", null);
 
         when(paymentService.initiatePayment(any(), anyString())).thenReturn(response);
 
@@ -104,7 +104,7 @@ class PaymentControllerTest {
 
     @Test
     void getPaymentById_found_returns200() throws Exception {
-        PaymentResponse response = new PaymentResponse(5L, new BigDecimal("200.00"), PaymentStatus.COMPLETED, PaymentMethod.BANK_TRANSFER, "ref-5");
+        PaymentResponse response = new PaymentResponse(5L, new BigDecimal("200.00"), PaymentStatus.COMPLETED, PaymentMethod.BANK_TRANSFER, "ref-5", null);
         when(paymentService.getPaymentById(5L)).thenReturn(response);
 
         mockMvc.perform(get("/api/v1/payments/5"))
