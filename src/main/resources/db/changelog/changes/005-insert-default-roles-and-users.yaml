@@ -1,0 +1,142 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-insert-default-roles-and-users
+      author: adela
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: CUSTOMER
+              - column:
+                  name: created_date
+                  valueComputed: current_timestamp
+              - column:
+                  name: created_by
+                  valueNumeric: 0
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: ADMIN
+              - column:
+                  name: created_date
+                  valueComputed: current_timestamp
+              - column:
+                  name: created_by
+                  valueNumeric: 0
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM roles WHERE name IN ('CUSTOMER', 'ADMIN')
+  - changeSet:
+      id: 005-insert-default-users
+      author: adela
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: first_name
+                  value: Admin
+              - column:
+                  name: last_name
+                  value: Admin
+              - column:
+                  name: email
+                  value: admin@gmail.com
+              - column:
+                  name: phone_number
+                  value: "+10000000001"
+              - column:
+                  name: password
+                  value: "$2a$10$NvMjhX3kkiOrGWafGCIXgeH0s1hEYYve2ibaXEPj7y9ZB3Z5sr6TS"
+              - column:
+                  name: created_date
+                  valueComputed: current_timestamp
+              - column:
+                  name: enabled
+                  valueBoolean: true
+              - column:
+                  name: locked
+                  valueBoolean: false
+              - column:
+                  name: credentials_expired
+                  valueBoolean: false
+              - column:
+                  name: email_verified
+                  valueBoolean: true
+              - column:
+                  name: phone_verified
+                  valueBoolean: true
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: first_name
+                  value: Adela
+              - column:
+                  name: last_name
+                  value: Alimani
+              - column:
+                  name: email
+                  value: adela@gmail.com
+              - column:
+                  name: phone_number
+                  value: "+10000000002"
+              - column:
+                  name: password
+                  value: "$2a$10$pT88Gh8Tm7jP46DU68Qh2uOquXv/7.ycUMU368eIxCx6dJ0C0cfY2"
+              - column:
+                  name: created_date
+                  valueComputed: current_timestamp
+              - column:
+                  name: enabled
+                  valueBoolean: true
+              - column:
+                  name: locked
+                  valueBoolean: false
+              - column:
+                  name: credentials_expired
+                  valueBoolean: false
+              - column:
+                  name: email_verified
+                  valueBoolean: true
+              - column:
+                  name: phone_verified
+                  valueBoolean: true
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM users WHERE email IN ('admin@gmail.com', 'adela@gmail.com')
+  - changeSet:
+      id: 005-insert-default-users-roles
+      author: adela
+      changes:
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: (SELECT id FROM users WHERE email = 'admin@gmail.com')
+              - column:
+                  name: role_id
+                  valueComputed: (SELECT id FROM roles WHERE name = 'ADMIN')
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: (SELECT id FROM users WHERE email = 'adela@gmail.com')
+              - column:
+                  name: role_id
+                  valueComputed: (SELECT id FROM roles WHERE name = 'CUSTOMER')
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM users_roles ur JOIN users u ON u.id = ur.user_id WHERE u.email IN ('admin@gmail.com', 'adela@gmail.com')
