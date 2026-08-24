@@ -28,7 +28,8 @@ public class SecurityConfig {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"};
+            "/swagger-ui.html",
+            "/actuator/**"};
 
     private final JwtFilter jwtFilter;
     private final RateLimitFilter rateLimitFilter;
