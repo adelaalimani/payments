@@ -20,8 +20,11 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: Verify Docker is available
-        run: docker info
+      - name: Write JWT keys
+        run: |
+          mkdir -p src/main/resources/keys
+          echo "${{ secrets.JWT_PRIVATE_KEY }}" > src/main/resources/keys/private_key.pem
+          echo "${{ secrets.JWT_PUBLIC_KEY }}" > src/main/resources/keys/public_key.pem
 
       - name: Run tests
         run: mvn -B test
