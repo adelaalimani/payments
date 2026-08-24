@@ -1,7 +1,9 @@
 package com.adela.payments.service;
 
+import com.adela.payments.config.AnalyticsResponse;
 import com.adela.payments.entity.Payment;
 import com.adela.payments.entity.User;
+import com.adela.payments.enums.PaymentMethod;
 import com.adela.payments.enums.PaymentStatus;
 import com.adela.payments.enums.RefundDecision;
 import com.adela.payments.exception.BadRequestException;
@@ -29,10 +31,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.adela.payments.enums.PaymentStatus.REFUNDED;
@@ -49,6 +53,7 @@ public class PaymentService {
     Set<String> ALLOWED = Set.of(
             "id", "amount", "status", "method", "reference", "createdAt"
     );
+
     public PaymentService(PaymentRepository paymentRepository, PaymentMapper paymentMapper, RedisTemplate<String, String> redisTemplate) {
         this.paymentRepository = paymentRepository;
         this.paymentMapper = paymentMapper;
@@ -249,5 +254,48 @@ public class PaymentService {
                 .noneMatch(auth -> Objects.equals(auth.getAuthority(), "ROLE_ADMIN"));
     }
 
+    public AnalyticsResponse getAnalytics(LocalDateTime from, LocalDateTime to) {
+        requireAdmin();
+
+        List<Object[]> rows = paymentRepository.getAnalyticsRaw(from, to);
+
+        long totalTransactions = 0;
+        BigDecimal totalVolume = BigDecimal.ZERO;
+        long completedCount = 0;
+
+        Map<String, Long> methodCounts = new HashMap<>();
+        Map<String, BigDecimal> methodVolumes = new HashMap<>();
+
+        for (Object[] row : rows) {
+            PaymentMethod method = (PaymentMethod) row[0];
+            PaymentStatus status = (PaymentStatus) row[1];
+            long count = (long) row[2];
+            BigDecimal volume = (BigDecimal) row[3];
+
+            totalTransactions += count;
+            totalVolume = totalVolume.add(volume);
+
+            if (status == PaymentStatus.COMPLETED) {
+                completedCount += count;
+            }
+
+            methodCounts.merge(method.name(), count, Long::sum);
+            methodVolumes.merge(method.name(), volume, BigDecimal::add);
+        }
+
+        double successRate = totalTransactions == 0
+                ? 0.0
+                : (double) completedCount / totalTransactions * 100;
+
+        Map<String, AnalyticsResponse.MethodBreakdown> breakdown = new HashMap<>();
+        for (String method : methodCounts.keySet()) {
+            breakdown.put(method, new AnalyticsResponse.MethodBreakdown(
+                    methodCounts.get(method),
+                    methodVolumes.get(method)
+            ));
+        }
+
+        return new AnalyticsResponse(totalTransactions, totalVolume, successRate, breakdown);
+    }
 
 }

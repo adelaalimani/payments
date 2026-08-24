@@ -32,7 +32,7 @@ public class RateLimitFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         String path = request.getRequestURI();
-        if (path.startsWith("/api/v1/webhooks") || path.startsWith("/api/v1/auth") || path.startsWith("/swagger-ui")
+        if (path.startsWith("/api/v1/webhook") || path.startsWith("/api/v1/auth") || path.startsWith("/swagger-ui")
                 || path.startsWith("/v3/api-docs")
                 || path.equals("/swagger-ui.html"))  {
             chain.doFilter(servletRequest, servletResponse);

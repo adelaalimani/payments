@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -65,7 +65,7 @@ public class User implements UserDetails {
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdDate;
 
-    @LastModifiedBy
+    @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
 

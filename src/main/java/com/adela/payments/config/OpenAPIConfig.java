@@ -14,15 +14,15 @@ import io.swagger.v3.oas.annotations.servers.Server;
         info = @Info(
                 contact = @Contact(
                         name = "Spring Security JWT Asymmetric Encryption Demo",
-                        email = "contact@alibou.com",
-                        url = "https://alibou.com"
+                        email = "adelaalimani1@gmail.com",
+                        url = "https://adelaal.com"
                 ),
                 description = "OpenApi documentation for Spring Security",
                 title = "OpenApi specification",
                 version = "1.0",
                 license = @License(
                         name = "Licence name",
-                        url = "https://alibou.com/licence"),
+                        url = "https://adelaal.com/licence"),
                 termsOfService = "Terms of service"),
         servers = {
                 @Server(
