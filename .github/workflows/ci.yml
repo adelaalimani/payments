@@ -20,6 +20,8 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+      - name: Verify Docker is available
+        run: docker info
 
       - name: Run tests
         run: mvn -B test
