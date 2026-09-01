@@ -22,13 +22,18 @@ resource "aws_instance" "ec2_instance" {
   subnet_id                   = aws_subnet.public_a.id
   vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
 
+  root_block_device {
+    volume_size = 20
+    volume_type = "gp3"
+  }
+
   tags = {
     Name = "ec2--payment"
   }
 
   lifecycle {
-    # prevent_destroy = true
-    # ignore_changes  = [ami]
+    prevent_destroy = true
+    ignore_changes  = [ami]
   }
 }
 
