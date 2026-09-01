@@ -6,6 +6,7 @@ COPY src ./src
 RUN apk add --no-cache maven && mvn -B package -DskipTests
 
 # Stage 2: Custom JRE
+FROM eclipse-temurin:21-alpine AS jre-build
 RUN $JAVA_HOME/bin/jlink \
     --add-modules java.base,java.sql,java.naming,java.desktop,java.management,java.instrument,java.security.jgss,java.xml,jdk.unsupported,jdk.crypto.ec \
     --strip-debug \
