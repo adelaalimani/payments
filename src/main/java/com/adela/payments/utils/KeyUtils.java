@@ -22,8 +22,6 @@ public class KeyUtils {
                 .replaceAll("-----BEGIN [A-Z ]+-----", "")
                 .replaceAll("-----END [A-Z ]+-----", "")
                 .replaceAll("\\s", "");
-        System.out.println("DEBUG key length: " + key.length());
-        System.out.println("DEBUG key content: " + key);
 
         byte[] decoded = Base64.getDecoder().decode(key);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decoded);
@@ -39,8 +37,6 @@ public class KeyUtils {
                 .replaceAll("-----BEGIN [A-Z ]+-----", "")
                 .replaceAll("-----END [A-Z ]+-----", "")
                 .replaceAll("\\s", "");
-        System.out.println("DEBUG key length: " + key.length());
-        System.out.println("DEBUG key content: " + key);
 
         byte[] decoded = Base64.getDecoder().decode(key);
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decoded);

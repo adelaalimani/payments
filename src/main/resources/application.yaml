@@ -1,5 +1,6 @@
 server:
   port: 8080
+  public-url: ${PUBLIC_URL:http://localhost:8080}
 
 spring:
   application:
